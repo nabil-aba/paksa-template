@@ -21,25 +21,25 @@ jobs:
             --exclude "*.zip"
           ls -lh paksa-template.zip
 
-      - name: Push ZIP ke paksa-core/templates/
+      - name: Push ZIP ke paksa-core-rust/templates/
         env:
           PAKSA_CORE_TOKEN: ${{ secrets.PAKSA_CORE_TOKEN }}
         run: |
-          git clone https://x-access-token:$PAKSA_CORE_TOKEN@github.com/nabil-aba/paksa-core.git paksa-core
-          mkdir -p paksa-core/templates
-          cp paksa-template.zip paksa-core/templates/paksa-template.zip
-          cd paksa-core
+          git clone https://x-access-token:$PAKSA_CORE_TOKEN@github.com/nabil-aba/paksa-core-rust.git paksa-core-rust
+          mkdir -p paksa-core-rust/templates
+          cp paksa-template.zip paksa-core-rust/templates/paksa-template.zip
+          cd paksa-core-rust
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add templates/paksa-template.zip
           git diff --staged --quiet || (git commit -m "ci: update paksa-template.zip [skip ci]" && git push)
 
-      - name: Trigger paksa-core build
+      - name: Trigger paksa-core-rust build
         env:
           PAKSA_CORE_TOKEN: ${{ secrets.PAKSA_CORE_TOKEN }}
         run: |
           curl -X POST \
             -H "Authorization: token $PAKSA_CORE_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/nabil-aba/paksa-core/dispatches \
+            https://api.github.com/repos/nabil-aba/paksa-core-rust/dispatches \
             -d '{"event_type":"templates-updated"}'
