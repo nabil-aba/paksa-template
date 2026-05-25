@@ -11,32 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Pack semua folder jadi ZIP
+      - name: Pack semua folder jadi ZIP secara otomatis
         run: |
           mkdir -p dist
           for dir in */; do
             name="${dir%/}"
             
-            # 1. Lewati folder sementara 'dist' dan folder kloningan agar tidak ikut terkompresi
-            if [ "$name" = "dist" ] || [ "$name" = "paksa-core-rust" ] || [ "$name" = "paksa-dist" ]; then
+            # Lewati folder 'dist' agar tidak ikut diproses
+            if [ "$name" = "dist" ]; then
               continue
             fi
             
             echo "Packing: $name"
-            cd "$name"
             
-            # 2. Kompresi dengan mengecualikan folder temporary/cache/build
-            # Kita menggunakan -x dengan tanda petik ganda agar kompatibel dan aman
-            zip -r "../dist/${name}.zip" . \
-              -x ".gradle/*" -x "*/.gradle/*" \
-              -x ".kotlin/*" -x "*/.kotlin/*" \
-              -x "build/*" -x "*/build/*" \
-              -x "output/*" -x "*/output/*" \
-              -x ".idea/*" -x "*/.idea/*" \
-              -x ".vscode/*" -x "*/.vscode/*" \
-              -x "*.zip"
-              
-            cd ..
+            # git archive akan otomatis men-zip isi folder.
+            # File sampah/build cache otomatis diabaikan tanpa perlu dideklarasikan satu per satu!
+            git archive --format=zip -o "dist/${name}.zip" HEAD:"$name"
+            
             echo "Packed: dist/${name}.zip"
           done
           ls -lh dist/
