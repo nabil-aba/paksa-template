@@ -8,11 +8,11 @@ if (project.rootProject.file('local.properties').exists()) {
 }
 
 android {
-    namespace 'com.projectnabil.basic'
+    namespace 'com.projectnabil.basic.kotlin'
     compileSdk 37
 
     defaultConfig {
-        applicationId "com.projectnabil.basic"
+        applicationId "com.projectnabil.basic.kotlin"
         minSdk 24
         targetSdk 37
         versionCode 1
@@ -37,4 +37,8 @@ android {
             signingConfig signingConfigs.release
         }
     }
+}
+
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.0'
 }

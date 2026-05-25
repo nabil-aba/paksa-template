@@ -1,4 +1,4 @@
-package com.projectnabil.basic;
+package com.projectnabil.basic.java;
 
 import android.app.Activity;
 import android.graphics.Color;
