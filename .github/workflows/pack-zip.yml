@@ -16,10 +16,12 @@ jobs:
           mkdir -p dist
           for dir in */; do
             name="${dir%/}"
-            zip -r "dist/${name}.zip" "$dir" \
+            cd "$name"
+            zip -r "../dist/${name}.zip" . \
               --exclude ".git/*" \
               --exclude ".github/*" \
               --exclude "*.zip"
+            cd ..
             echo "Packed: dist/${name}.zip"
           done
           ls -lh dist/
@@ -30,6 +32,7 @@ jobs:
         run: |
           git clone https://x-access-token:$PAKSA_CORE_TOKEN@github.com/nabil-aba/paksa-core-rust.git paksa-core-rust
           mkdir -p paksa-core-rust/templates
+          rm -f paksa-core-rust/templates/*.zip
           cp dist/*.zip paksa-core-rust/templates/
           cd paksa-core-rust
           git config user.name "github-actions[bot]"
@@ -43,6 +46,7 @@ jobs:
         run: |
           git clone https://x-access-token:$PAKSA_CORE_TOKEN@github.com/nabil-aba/paksa.git paksa-dist
           mkdir -p paksa-dist/templates
+          rm -f paksa-dist/templates/*.zip
           cp dist/*.zip paksa-dist/templates/
           cd paksa-dist
           git config user.name "github-actions[bot]"
