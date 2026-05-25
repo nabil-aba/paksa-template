@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.application'
+}
+
+Properties properties = new Properties()
+if (project.rootProject.file('local.properties').exists()) {
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
+
+android {
+    namespace 'com.projectnabil.basic.cpp'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId "com.projectnabil.basic.cpp"
+        minSdk 24
+        targetSdk 37
+        versionCode 1
+        versionName "1.0"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ''
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.22.1'
+        }
+    }
+
+    signingConfigs {
+        release {
+            def keyFileStr = properties.getProperty('MY_KEY_FILENAME', '')
+            if (keyFileStr != null && keyFileStr.trim() != '') {
+                storeFile file(keyFileStr)
+                storePassword properties.getProperty('MY_STORE_PASSWORD', '')
+                keyAlias properties.getProperty('MY_KEY_ALIAS', '')
+                keyPassword properties.getProperty('MY_KEY_PASSWORD', '')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+}

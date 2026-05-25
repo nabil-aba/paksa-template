@@ -1,0 +1,13 @@
+.gradle/
+build/
+app/build/
+local.properties
+*.jks
+*.keystore
+.idea/
+*.iml
+.vscode/*
+!.vscode/tasks.json
+output/
+.cxx/
+app/.cxx/
