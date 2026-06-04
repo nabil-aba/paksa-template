@@ -21,10 +21,9 @@ jobs:
           mkdir -p dist
           for dir in */; do
             name="${dir%/}"
+            if [ "$name" = "dist" ]; then continue; fi
             if [ -d "$name/app" ]; then
-              cd "$name"
-              zip -r "../dist/${name}.zip" .
-              cd ..
+              (cd "$name" && zip -r "../dist/${name}.zip" .)
               echo "✅ Zipped: dist/${name}.zip"
             fi
           done
