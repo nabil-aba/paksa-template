@@ -22,7 +22,9 @@ jobs:
           for dir in */; do
             name="${dir%/}"
             if [ -d "$name/app" ]; then
-              zip -r "dist/${name}.zip" "$name/"
+              cd "$name"
+              zip -r "../dist/${name}.zip" .
+              cd ..
               echo "✅ Zipped: dist/${name}.zip"
             fi
           done
