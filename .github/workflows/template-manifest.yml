@@ -1,0 +1,51 @@
+name: Build & Update Template Manifest
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "dist/**"
+      - "README.md"
+      - "screenshot.png"
+      - ".github/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip semua template folder ke dist/
+        run: |
+          mkdir -p dist
+          for dir in */; do
+            name="${dir%/}"
+            if [ -d "$name/app" ]; then
+              zip -r "dist/${name}.zip" "$name/"
+              echo "✅ Zipped: dist/${name}.zip"
+            fi
+          done
+
+      - name: Generate dist/manifest.json
+        run: |
+          python3 -c "
+          import os, hashlib, json
+          manifest = []
+          for f in sorted(os.listdir('dist')):
+              if f.endswith('.zip'):
+                  with open(f'dist/{f}', 'rb') as fp:
+                      sha256 = hashlib.sha256(fp.read()).hexdigest()
+                  manifest.append({'name': f, 'sha256': sha256})
+          with open('dist/manifest.json', 'w') as out:
+              json.dump(manifest, out, indent=2)
+          "
+
+      - name: Commit dist/
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/
+          if ! git diff --staged --quiet; then
+            git commit -m "🔄 Rebuild dist/ [skip ci]"
+            git push
+          fi
