@@ -1,0 +1,22 @@
+[
+  {
+    "name": "android-library.zip",
+    "sha256": "345160ce663ec420c2b04f96f5da9066f535e556a2a7c267944cf4631bd3d200"
+  },
+  {
+    "name": "cpp-ndk-basic.zip",
+    "sha256": "65024fd0a0bf83236b55ec13326e084d99cb747a4b9437450cbbe44247c2c135"
+  },
+  {
+    "name": "java-basic.zip",
+    "sha256": "f5531e705ee3a88a8cd5609848193937062a66c620ddbd4d34fbdb1d2509b500"
+  },
+  {
+    "name": "kotlin-basic.zip",
+    "sha256": "ad89b413dc9d25852cf34e80d2945f54c0c1875aa454571705fe5371ed123b5d"
+  },
+  {
+    "name": "kotlin-compose-basic.zip",
+    "sha256": "e938bde24db6753dbee017f33135d5b1e480ff8ece107cdbeeb6f9f8f2ca9b55"
+  }
+]
