@@ -18,6 +18,7 @@ jobs:
 
       - name: Zip semua template folder ke dist/
         run: |
+          rm -rf dist
           mkdir -p dist
           for dir in */; do
             name="${dir%/}"
@@ -32,12 +33,13 @@ jobs:
         run: |
           python3 -c "
           import os, hashlib, json
+          from datetime import datetime
           manifest = []
           for f in sorted(os.listdir('dist')):
               if f.endswith('.zip'):
                   with open(f'dist/{f}', 'rb') as fp:
                       sha256 = hashlib.sha256(fp.read()).hexdigest()
-                  manifest.append({'name': f, 'sha256': sha256})
+                  manifest.append({'name': f, 'sha256': sha256, 'updated_at': datetime.utcnow().isoformat()})
           with open('dist/manifest.json', 'w') as out:
               json.dump(manifest, out, indent=2)
           "
