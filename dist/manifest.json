@@ -1,22 +1,22 @@
 [
   {
     "name": "android-library.zip",
-    "sha256": "5f11a174df35229bf0d8488dd873d204b564ef94f9dea1597a8f1348a0fe4374"
+    "sha256": "1a25782f31587752965b53a9ebaf7aa1bce27c6d15fd9cb703e74f5db617ed3a"
   },
   {
     "name": "cpp-ndk-basic.zip",
-    "sha256": "755a4923125c536d7545edbaafd9d92e98ef0ecc73ea282aefba1d14e1f2dd63"
+    "sha256": "9af31b441daa401475ef7596195d623100ee3ee89155efd551a378b53c2d02bc"
   },
   {
     "name": "java-basic.zip",
-    "sha256": "aa313e5042a5d850a9376a06fb143ad270f83402350f97bbe672e692d1bc1b15"
+    "sha256": "bd2bc4d2c37ca609fd2d0dc109bed565876cd40a43b107c883ff2cee97510022"
   },
   {
     "name": "kotlin-basic.zip",
-    "sha256": "00db10aa5f4fc570ea123707d88f5ce3e8d6514d98a5aa3d8a5e0ffd166bb408"
+    "sha256": "e625d4a39bcffaf7c87db7b81cd5717c566c7f6e1dc6574b40442c7024b79701"
   },
   {
     "name": "kotlin-compose-basic.zip",
-    "sha256": "ba6f923151afd6ae962775ff0831db5c212664bcb05981865cb8f1e180e70d53"
+    "sha256": "85c87f5205867c3556b91b06d637d0b8603c1c1e8198cf72afa8cc6293df0721"
   }
 ]
